@@ -72,7 +72,7 @@ patch_boot() { # 修补boot镜像
 	echo "${GREEN}I: Done${RESET}"
 	echo "${BLUE}I: Repacking...${RESET}"
 	./magiskboot repack boot${BOOTSUFFIX}.img
-	EXITSTATUS=1
+	EXITSTATUS=$?
 	if [[ $EXITSTATUS != 0 ]]; then
 		echo "${RED}E: REPACK FAILED!${RESET}"
 		exit 1
