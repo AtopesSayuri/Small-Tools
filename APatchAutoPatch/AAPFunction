@@ -65,7 +65,7 @@ patch_boot() { # 修补boot镜像
 	echo "${BLUE}I: Unpatching current image...${RESET}"
 	./kptools-android -u -i kernel -o kernel || EXITSTATUS=$?
 	if [[ ${EXITSTATUS} != 0 ]]; then
-		echo "${YELLOW}W: UNPATCH BOOT IMAGE FAILED!${RESET}"
+		echo "${YELLOW}I: Maybe you are using stock boot image?${RESET}"
 		echo "${YELLOW}W: Now skipping unpatching...${RESET}"
 	else
 		echo "${GREEN}I: Done.${RESET}"
