@@ -1,5 +1,8 @@
 # APatch Auto Patch Tool
 
+**NOTICE: This repository has been moved to [new repository](https://github.com/nya-main/APatchAutoPatchTool)**
+---
+
 This script will:
 
 - Obtain the current boot image of your phone.
