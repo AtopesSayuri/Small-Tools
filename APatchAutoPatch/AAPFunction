@@ -58,7 +58,14 @@ patch_boot() { # 修补boot镜像
 	./magiskboot unpack boot${BOOTSUFFIX}.img
 	EXITSTATUS=$?
 	if [[ $EXITSTATUS != 0 ]]; then
-		echo "${RED}E: UNPACK BOOT IMAGE FAILED${RESET}"
+		echo "${RED}E: UNPACK BOOT IMAGE FAILED!${RESET}"
+		exit 1
+	fi
+	echo "${GREEN}I: Done.${RESET}"
+	echo "${BLUE}I: Unpatching current image...${RESET}"
+	./kptools-android -u -i kernel -o kernel || EXITSTATUS=$?
+	if [[ ${EXITSTATUS} != 0 ]]; then
+		echo "${RED}E: UNPATCH BOOT IMAGE FAILED!${RESET}"
 		exit 1
 	fi
 	echo "${GREEN}I: Done.${RESET}"
