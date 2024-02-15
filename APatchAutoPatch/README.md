@@ -1,6 +1,9 @@
 # APatch Auto Patch Tool
 
-**NOTICE: This repository has been moved to [new repository](https://github.com/nya-main/APatchAutoPatchTool)**
+# **NOTICE: This repository has been moved to [new repository](https://github.com/nya-main/APatchAutoPatchTool)**
+
+**The repository is EOL.**
+
 ---
 
 This script will:
