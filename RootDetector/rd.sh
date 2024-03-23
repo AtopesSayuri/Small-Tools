@@ -2,9 +2,12 @@
 #by Atopes
 #run this in termux
 
-set -x
-
 ROOT=false
+
+# 用户检测
+if [[ $(id -u) -eq 0 ]]; then
+	ROOT=true
+fi
 
 # 部分文件判断
 if [[ -e /data/adb/ap || -e /data/adb/magisk || -e /data/adb/ksu ]]; then
