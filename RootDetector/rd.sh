@@ -11,7 +11,7 @@ if [[ "${SELinuxState}" == "Enforcing" || "${SELinuxState}" == "Disabled" ]]; th
 fi
 
 # 挂载检测
-MOUNTSCHECK=$(cat /proc/mounts | grep -i -e ksu -e magisk -e zygisk)
+MOUNTSCHECK=$(cat /proc/mounts | grep -i -e ksu -e magisk -e zygisk -e apatch)
 if [[ -n ${MOUNTSCHECK} ]]; then
 	ROOT=$((${ROOT} + 25))
 fi
