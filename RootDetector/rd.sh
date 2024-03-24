@@ -4,14 +4,18 @@
 
 ROOT=0
 
-# SELinux 检测
-SELinuxState=$(/system/bin/getenforce)
-if [[ "${SELinuxState}" == "Enforcing" || "${SELinuxState}" == "Disabled" ]]; then
-	ROOT=$((${ROOT} + 25))
+if [[ "$(id -u)" == "0" ]]; then
+	echo "You look down on me too much when you run this script with root privileges!!"
+	exit 114
+fi
+
+# 文件夹检测
+if [[ -e /data/adb ]]; then
+	ROOT=$((${ROOT} + 10))
 fi
 
 # 挂载检测
-MOUNTSCHECK=$(cat /proc/mounts | grep -i -e ksu -e magisk -e zygisk -e apatch)
+MOUNTSCHECK=$(cat /proc/mounts | grep -i -e ksu -e magisk -e zygisk -e apatch -e overlay)
 if [[ -n ${MOUNTSCHECK} ]]; then
 	ROOT=$((${ROOT} + 25))
 fi
@@ -24,9 +28,15 @@ if [[ $ES -eq 127 ]]; then
 fi
 
 # ps 进程查询
-PSCHECK=$(ps -ef | grep -i -e kernelsu -e apatch -e magisk)
+PSRESUT=$(ps -ef)
+PSCHECK=$(echo ${PSRESUT} | grep -i kernelsu && echo ${PSRESUT} | grep -i apatch && echo ${PSRESUT} | grep -i magisk)
 if [[ -n ${PSCHECK} ]]; then
 	ROOT=$((${ROOT} + 25))
+fi
+
+# prop 检测
+if [[ "$(getprop ro.secureboot.lockstate)" == "locked" || "$(getprop sys.oem_unlock_allowed)" == "true" || "$(getprop ro.bootloader)" == "unknown" || "$(getprop ro.bootloader)" == "unlocked" ]]; then
+	ROOT=$((${ROOT} + 10))
 fi
 
 # root 管理器查询 (不可信)
@@ -34,7 +44,7 @@ PKG=("me.bmax.apatch" "com.topjohnwu.magisk" "me.weishu.kernelsu" "io.github.vvb
 for i in $PKG; do
 	if (pm path $i); then
 		RMANAGER=$i
-		ROOT=$((${ROOT} + 25))
+		ROOT=$((${ROOT} + 10))
 	fi
 done
 
