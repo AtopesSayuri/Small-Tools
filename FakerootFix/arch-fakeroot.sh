@@ -13,7 +13,7 @@ SOLVERTMP="/tmp/nya_archfakeroot_solver"
 
 #检测命令
 sudo pacman -Syu
-sudo pacman -Sy wget tar make filesystem glibc sed util-linux po4a automake autoconf acl git --needed
+sudo pacman -Sy wget tar make filesystem glibc sed util-linux po4a automake autoconf acl po4a git --needed
 
 if [[ "${1}" == "-h" || "${1}" == "--help" ]]; then
 	echo -e "简单的./运行就可以了！"
